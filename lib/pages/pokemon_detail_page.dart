@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pokemon/widgets/type_pokemon.dart';
 import '../data/models/pokemon_model.dart';
 import '../data/services/favorite_service.dart'; // Asegúrate de importar tu servicio
+import '../widgets/custom_app_bar.dart';
 
 class PokemonDetailPage extends StatefulWidget {
   final PokemonListItem pokemon;
@@ -43,7 +44,7 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
     final pokemon = widget.pokemon;
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: const CustomAppBar(title: 'Favoritos'),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

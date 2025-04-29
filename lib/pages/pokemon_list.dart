@@ -3,6 +3,7 @@ import '../data/models/pokemon_model.dart';
 import '../data/repositories/pokemon_repository.dart';
 import '../widgets/search.dart';
 import '../widgets/full_pokemon_list.dart'; // Importamos el nuevo widget
+import '../widgets/custom_app_bar.dart';
 
 class PokemonListPage extends StatefulWidget {
   const PokemonListPage({super.key});
@@ -95,7 +96,7 @@ class _PokemonListPageState extends State<PokemonListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Pokédex")),
+      appBar: const CustomAppBar(title: 'Favoritos'),
       body: Column(
         children: [
           CustomerSearchBar(onChanged: _applyFilter),

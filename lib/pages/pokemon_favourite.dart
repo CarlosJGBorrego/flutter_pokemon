@@ -3,6 +3,7 @@ import 'package:pokemon/data/models/pokemon_model.dart';
 import 'package:pokemon/data/repositories/pokemon_repository.dart';
 import 'package:pokemon/data/services/favorite_service.dart';
 import 'pokemon_detail_page.dart';
+import '../widgets/custom_app_bar.dart';
 
 class PokemonFavouritePage extends StatefulWidget {
   const PokemonFavouritePage({super.key});
@@ -48,7 +49,7 @@ class _PokemonFavouritePageState extends State<PokemonFavouritePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Favoritos')),
+      appBar: const CustomAppBar(title: 'Favoritos'),
       body:
           favorites.isEmpty
               ? const Center(
