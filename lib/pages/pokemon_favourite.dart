@@ -48,14 +48,18 @@ class _PokemonFavouritePageState extends State<PokemonFavouritePage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: const CustomAppBar(title: 'Favoritos'),
       body:
           favorites.isEmpty
-              ? const Center(
+              ? Center(
                 child: Text(
                   'No hay Pokémon añadidos a la lista.',
-                  style: TextStyle(fontSize: 16, color: Colors.black54),
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: theme.colorScheme.onSurface,
+                  ),
                 ),
               )
               : ListView.builder(

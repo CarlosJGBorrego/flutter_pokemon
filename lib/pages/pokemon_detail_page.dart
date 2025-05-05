@@ -42,6 +42,7 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
   @override
   Widget build(BuildContext context) {
     final pokemon = widget.pokemon;
+    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: const CustomAppBar(title: 'Favoritos'),
@@ -69,20 +70,20 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                 children: [
                   Text(
                     '# ${pokemon.id ?? "N/A"}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
-                      color: Colors.blueGrey,
+                      color: theme.colorScheme.primary,
                     ),
                   ),
                   const SizedBox(width: 10),
                   Text(
                     pokemon.name[0].toUpperCase() +
                         pokemon.name.substring(1).toLowerCase(),
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black87,
+                      color: theme.colorScheme.onSurface,
                     ),
                   ),
                 ],
@@ -118,19 +119,19 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                 children: [
                   Text(
                     'Altura: ${(pokemon.height ?? 0.0).toStringAsFixed(1)} m',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      color: Colors.black54,
+                      color: theme.colorScheme.onSurface.withAlpha(153),
                     ),
                   ),
                   const SizedBox(width: 20),
                   Text(
                     'Peso: ${(pokemon.weight ?? 0.0).toStringAsFixed(1)} kg',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      color: Colors.black54,
+                      color: theme.colorScheme.onSurface.withAlpha(153),
                     ),
                   ),
                 ],
