@@ -87,7 +87,8 @@ class _PokemonListPageState extends State<PokemonListPage> {
         _filteredPokemon = List.from(_allPokemon);
       });
     } else {
-      final localMatches =
+      // Buscar coincidencias parciales en los que ya tienes
+      final localResults =
           _allPokemon
               .where(
                 (pokemon) =>
@@ -95,38 +96,29 @@ class _PokemonListPageState extends State<PokemonListPage> {
               )
               .toList();
 
-      setState(() {
-        _filteredPokemon = localMatches;
-      });
-
-      // Si no hay coincidencias locales, busca en la API por nombre exacto
-      if (localMatches.isEmpty) {
+      if (localResults.isNotEmpty) {
+        setState(() {
+          _filteredPokemon = localResults;
+        });
+      } else if (query.length >= 3) {
+        // Si no hay resultados y el usuario ha escrito al menos 3 letras
         try {
-          final data = await _repository.getPokemonByName(query.toLowerCase());
-          final newPokemon = PokemonListItem(
-            name: data['name'],
-            url: '${_repository.baseUrl}/pokemon/${data['id']}',
+          final result = await _repository.getPokemonByName(
+            query.toLowerCase(),
           );
-          await newPokemon.pokemonDetails();
-
-          // Evita agregar duplicados
-          final alreadyExists = _allPokemon.any(
-            (p) => p.name == newPokemon.name,
+          final pokemon = PokemonListItem(
+            name: result['name'],
+            url: '${_repository.baseUrl}/pokemon/${result['id']}',
           );
-          if (!alreadyExists) {
-            setState(() {
-              _allPokemon.add(newPokemon);
-            });
-          }
+          await _repository.getPokemonDetails(pokemon);
 
           setState(() {
-            _filteredPokemon = [newPokemon];
+            _filteredPokemon = [pokemon];
           });
         } catch (e) {
-          // No encontrado o error: simplemente no mostramos nada
-          print('Error buscando $query: $e');
+          print('Pokémon no encontrado: $e');
           setState(() {
-            _filteredPokemon = [];
+            _filteredPokemon = []; // No encontrado
           });
         }
       }
