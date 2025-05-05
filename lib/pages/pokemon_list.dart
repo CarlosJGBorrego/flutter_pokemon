@@ -76,21 +76,61 @@ class _PokemonListPageState extends State<PokemonListPage> {
     }
   }
 
-  void _applyFilter(String query) {
+  void _applyFilter(String query) async {
     setState(() {
       _searchQuery = query;
-      if (query.isEmpty) {
-        _filteredPokemon = List.from(_allPokemon);
-      } else {
-        _filteredPokemon =
-            _allPokemon
-                .where(
-                  (pokemon) =>
-                      pokemon.name.toLowerCase().contains(query.toLowerCase()),
-                )
-                .toList();
-      }
+      _filteredPokemon = [];
     });
+
+    if (query.isEmpty) {
+      setState(() {
+        _filteredPokemon = List.from(_allPokemon);
+      });
+    } else {
+      final localMatches =
+          _allPokemon
+              .where(
+                (pokemon) =>
+                    pokemon.name.toLowerCase().contains(query.toLowerCase()),
+              )
+              .toList();
+
+      setState(() {
+        _filteredPokemon = localMatches;
+      });
+
+      // Si no hay coincidencias locales, busca en la API por nombre exacto
+      if (localMatches.isEmpty) {
+        try {
+          final data = await _repository.getPokemonByName(query.toLowerCase());
+          final newPokemon = PokemonListItem(
+            name: data['name'],
+            url: '${_repository.baseUrl}/pokemon/${data['id']}',
+          );
+          await newPokemon.pokemonDetails();
+
+          // Evita agregar duplicados
+          final alreadyExists = _allPokemon.any(
+            (p) => p.name == newPokemon.name,
+          );
+          if (!alreadyExists) {
+            setState(() {
+              _allPokemon.add(newPokemon);
+            });
+          }
+
+          setState(() {
+            _filteredPokemon = [newPokemon];
+          });
+        } catch (e) {
+          // No encontrado o error: simplemente no mostramos nada
+          print('Error buscando $query: $e');
+          setState(() {
+            _filteredPokemon = [];
+          });
+        }
+      }
+    }
   }
 
   @override

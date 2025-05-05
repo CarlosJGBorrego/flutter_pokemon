@@ -19,35 +19,40 @@ class FullPokemonList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ListView.builder(
-        controller: scrollController,
-        itemCount: filteredPokemon.length + (isLoading ? 1 : 0),
-        itemBuilder: (context, index) {
-          if (index < filteredPokemon.length) {
-            final pokemon = filteredPokemon[index];
-            return ListTile(
-              title: Text(
-                pokemon.name[0].toUpperCase() +
-                    pokemon.name.substring(1).toLowerCase(),
+      child:
+          filteredPokemon.isEmpty && !isLoading
+              ? const Center(child: Text('No se encontraron Pokémon'))
+              : ListView.builder(
+                controller: scrollController,
+                itemCount: filteredPokemon.length + (isLoading ? 1 : 0),
+                itemBuilder: (context, index) {
+                  if (index < filteredPokemon.length) {
+                    final pokemon = filteredPokemon[index];
+                    return ListTile(
+                      title: Text(
+                        pokemon.name[0].toUpperCase() +
+                            pokemon.name.substring(1).toLowerCase(),
+                      ),
+                      leading: Image.network(pokemon.imageUrl ?? ''),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (context) =>
+                                    PokemonDetailPage(pokemon: pokemon),
+                          ),
+                        );
+                      },
+                    );
+                  } else {
+                    return const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      child: Center(child: CircularProgressIndicator()),
+                    );
+                  }
+                },
               ),
-              leading: Image.network(pokemon.imageUrl ?? ''),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PokemonDetailPage(pokemon: pokemon),
-                  ),
-                );
-              },
-            );
-          } else {
-            return const Padding(
-              padding: EdgeInsets.symmetric(vertical: 16),
-              child: Center(child: CircularProgressIndicator()),
-            );
-          }
-        },
-      ),
     );
   }
 }
