@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; //UI estándar de flutter
 import '../pages/home.dart';
 import '../pages/pokemon_list.dart';
 import '../pages/pokemon_favourite.dart';

@@ -18,14 +18,20 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: Switch(
             value: themeProvider.isDarkMode,
             onChanged: (_) => themeProvider.toggleTheme(),
-            activeColor: Theme.of(context).colorScheme.onPrimary,
-            activeTrackColor: Theme.of(
-              context,
-            ).colorScheme.primary.withAlpha(153),
-            inactiveThumbColor: Theme.of(context).colorScheme.onSurface,
-            inactiveTrackColor: Theme.of(
-              context,
-            ).colorScheme.surface.withAlpha(153),
+            activeColor:
+                Theme.of(context)
+                    .colorScheme
+                    .onPrimary, //Color del circulo(thumb) cuando el switch está activado
+            activeTrackColor: Theme.of(context).colorScheme.primary.withAlpha(
+              153,
+            ), //Color de la linea de fondo cuando está activado
+            inactiveThumbColor:
+                Theme.of(context)
+                    .colorScheme
+                    .onSurface, //Color del circulo cuando está desactivado
+            inactiveTrackColor: Theme.of(context).colorScheme.surface.withAlpha(
+              153,
+            ), //Color de la linea de fondo cuando esta desactivado
           ),
         ),
       ],

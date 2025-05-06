@@ -1,6 +1,5 @@
-// lib/app.dart
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/material.dart'; //UI estándar de Flutter
+import 'package:provider/provider.dart'; //Se usa para la gestión del estado
 import 'widgets/navigation_menu.dart';
 import 'data/services/theme_provider.dart';
 import 'app_themes.dart';

@@ -1,12 +1,14 @@
-// lib/data/services/theme_provider.dart
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/material.dart'; //Para changeNotifier, notificaciones a la UI, etc
+import 'package:shared_preferences/shared_preferences.dart'; //Para guardar la preferencia en local
 
+//La clase creada que extiende de ChangeNotifier permite notificar a los widgets cuando hay cambios
 class ThemeProvider extends ChangeNotifier {
   bool _isDarkMode = false;
 
+  //Para acceder a _isDarkMode desde fuera de forma segura
   bool get isDarkMode => _isDarkMode;
 
+  //Al crear la instancia se ejecuta _loadTheme() para cargar la preferencia guardada
   ThemeProvider() {
     _loadTheme();
   }

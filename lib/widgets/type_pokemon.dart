@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; //Para acceder a los widgets básicos como Scaffold, Column, etc
 
 class PokemonTypeData {
   final Color color;

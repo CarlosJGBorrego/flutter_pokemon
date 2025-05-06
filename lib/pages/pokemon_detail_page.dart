@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; //Permite usar los widgets de flutter
 import 'package:pokemon/widgets/type_pokemon.dart';
 import '../data/models/pokemon_model.dart';
-import '../data/services/favorite_service.dart'; // Asegúrate de importar tu servicio
+import '../data/services/favorite_service.dart';
 import '../widgets/custom_app_bar.dart';
 
+//StatefulWidgets -> Lo utulizamos cuando necesitamos manejar los estados, en nuestro caso del botón de favoritos
 class PokemonDetailPage extends StatefulWidget {
   final PokemonListItem pokemon;
   const PokemonDetailPage({super.key, required this.pokemon});
@@ -16,12 +17,14 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
   bool isFavorite = false;
   final favoriteService = FavoriteService();
 
+  //Cuando se crea la página, llamamos a _loadFavorite para saber si el pokemon actual está marcado como favorito
   @override
   void initState() {
     super.initState();
     _loadFavorite();
   }
 
+  //Alternamos entre favorito y no favorito cuando pulsamos el botón
   Future<void> _loadFavorite() async {
     if (widget.pokemon.id != null) {
       final fav = await favoriteService.isFavorite(widget.pokemon.id!);

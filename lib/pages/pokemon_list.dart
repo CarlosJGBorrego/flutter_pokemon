@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; //UI estándar de Flutter
 import '../data/models/pokemon_model.dart';
 import '../data/repositories/pokemon_repository.dart';
 import '../widgets/search.dart';
-import '../widgets/full_pokemon_list.dart'; // Importamos el nuevo widget
+import '../widgets/full_pokemon_list.dart';
 import '../widgets/custom_app_bar.dart';
 
+//StatefulWidget para manejar los estados, en nuestro caso, pokemonFavoritos
 class PokemonListPage extends StatefulWidget {
   const PokemonListPage({super.key});
 
@@ -13,6 +14,7 @@ class PokemonListPage extends StatefulWidget {
 }
 
 class _PokemonListPageState extends State<PokemonListPage> {
+  //Obtener datos y controlar el scroll
   final PokemonRepository _repository = PokemonRepository();
   final ScrollController _scrollController = ScrollController();
 
@@ -25,6 +27,7 @@ class _PokemonListPageState extends State<PokemonListPage> {
   final int _limit = 20;
   String _searchQuery = '';
 
+  //Al iniciar carga la primera tanda de pokemons y activa el listener para cargar mas al hacer scroll
   @override
   void initState() {
     super.initState();
@@ -32,12 +35,14 @@ class _PokemonListPageState extends State<PokemonListPage> {
     _scrollController.addListener(_onScroll);
   }
 
+  //Limpia el controller cuando se destruye la pantalla
   @override
   void dispose() {
     _scrollController.dispose();
     super.dispose();
   }
 
+  //Scroll infinito
   void _onScroll() {
     if (_scrollController.position.pixels >=
             _scrollController.position.maxScrollExtent - 200 &&
@@ -47,6 +52,7 @@ class _PokemonListPageState extends State<PokemonListPage> {
     }
   }
 
+  //Cargar lista de pokemons
   Future<void> _loadPokemonList() async {
     setState(() => _isLoading = true);
     try {
@@ -76,6 +82,7 @@ class _PokemonListPageState extends State<PokemonListPage> {
     }
   }
 
+  //Filtro de búsqueda
   void _applyFilter(String query) async {
     setState(() {
       _searchQuery = query;

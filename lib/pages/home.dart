@@ -1,11 +1,14 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; //Para acceder a los widgets básicos como Scaffold, Column, etc
 import '../widgets/custom_app_bar.dart';
 
+//StatelessWidgets significa que no tiene estado, solo mostramos contenido estático
 class HomePage extends StatelessWidget {
+  //Permite pasa una clave en caso de si es necesario para identificar el widget en el árbol
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    //Scaffold -> Estructura básica para una pantalla en Flutter
     return Scaffold(
       appBar: const CustomAppBar(title: 'Favoritos'),
       backgroundColor: Colors.yellow[50], // Fondo claro y agradable

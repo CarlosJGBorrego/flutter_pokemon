@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; //UI estandar de flutter
 import 'package:pokemon/data/models/pokemon_model.dart';
 import 'package:pokemon/data/repositories/pokemon_repository.dart';
 import 'package:pokemon/data/services/favorite_service.dart';
 import 'pokemon_detail_page.dart';
 import '../widgets/custom_app_bar.dart';
 
+//StatefulWidget para manejar los estados, en nuestro caso pokemonFavoritos
 class PokemonFavouritePage extends StatefulWidget {
   const PokemonFavouritePage({super.key});
 
@@ -13,10 +14,12 @@ class PokemonFavouritePage extends StatefulWidget {
 }
 
 class _PokemonFavouritePageState extends State<PokemonFavouritePage> {
+  //Crear el repositorio, llamar al servicio y guardarlos en una lista
   final repository = PokemonRepository();
   final favoriteService = FavoriteService();
   List<PokemonListItem> favorites = [];
 
+  //Cargar los pokemons almacenados en local
   @override
   void initState() {
     super.initState();
